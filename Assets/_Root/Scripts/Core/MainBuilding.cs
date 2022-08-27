@@ -5,9 +5,6 @@ namespace Core
 {
     public sealed class MainBuilding : MonoBehaviour, IUnitProducer, ISelectable
     {
-        public Health Health => _health;
-        public Sprite Icon => _icon;
-
         [Header("Unit Produce Settings")]
         [SerializeField] private GameObject _unitPrefab;
         [SerializeField] private Transform _unitsParent;
@@ -16,6 +13,9 @@ namespace Core
         [SerializeField] private Health _health;
         [SerializeField] private float _startHealth;
         [SerializeField] private Sprite _icon;
+
+        public Health Health => _health;
+        public Sprite Icon => _icon;
 
         private void Awake()
         {
