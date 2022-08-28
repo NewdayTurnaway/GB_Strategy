@@ -1,12 +1,13 @@
 using Abstractions;
+using Abstractions.Commands;
+using Abstractions.Commands.CommandsInterfaces;
 using UnityEngine;
 
 namespace Core
 {
-    public sealed class MainBuilding : MonoBehaviour, IUnitProducer, ISelectable
+    public sealed class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable
     {
         [Header("Unit Produce Settings")]
-        [SerializeField] private GameObject _unitPrefab;
         [SerializeField] private Transform _unitsParent;
 
         [Header("Build Settings")]
@@ -23,12 +24,10 @@ namespace Core
             _health.CurrentHealth = _startHealth;
         }
 
-        public void ProduceUnit()
-        {
-            Instantiate(_unitPrefab,
-                new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
-                Quaternion.identity,
-                _unitsParent);
-        }
+        public override void ExecuteSpecificCommand(IProduceUnitCommand command) 
+            => Instantiate(command.UnitPrefab,
+                           new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
+                           Quaternion.identity,
+                           _unitsParent);
     }
 }
