@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4597851093110959857}
   - component: {fileID: 7365079006211755859}
   - component: {fileID: 7365079006211755860}
+  - component: {fileID: 2703859646796802777}
   m_Layer: 0
   m_Name: MainBuilding
   m_TagString: Untagged
@@ -111,8 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e01563d37a23f4e9bae517fb3e14dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitPrefab: {fileID: 356966425143561641, guid: 1fe29dde1d69aab43ab1d703603586e9, type: 3}
-  _unitsParent: {fileID: 0}
   _health:
     <MaxHealth>k__BackingField: 1000
   _startHealth: 800
@@ -131,3 +130,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 8753690240155265259}
   _outlineMaterial: {fileID: 2100000, guid: cc6519342e9a3174e99202801915c66e, type: 2}
+--- !u!114 &2703859646796802777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220647328511851732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d0af9cc05f3af498ed3e496573d2fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitsParent: {fileID: 0}

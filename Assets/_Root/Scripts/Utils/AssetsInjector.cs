@@ -17,15 +17,9 @@ namespace Utils
             for (int i = 0; i < allFields.Length; i++)
             {
                 FieldInfo fieldInfo = allFields[i];
-                //InjectAssetAttribute injectAssetAttribute = fieldInfo.GetCustomAttribute(_injectAssetAttributeType) as InjectAssetAttribute;
-                //if (injectAssetAttribute == null)
-                //{
-                //    continue;
-                //}
                 
                 if (fieldInfo.GetCustomAttribute(_injectAssetAttributeType) is not InjectAssetAttribute injectAssetAttribute)
                     continue;
-
 
                 UnityEngine.Object objectToInject = context.GetObjectOfType(fieldInfo.FieldType, injectAssetAttribute.AssetName);
                 fieldInfo.SetValue(target, objectToInject);

@@ -1,15 +1,10 @@
 using Abstractions;
-using Abstractions.Commands;
-using Abstractions.Commands.CommandsInterfaces;
 using UnityEngine;
 
 namespace Core
 {
-    public sealed class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable
+    public sealed class MainBuilding : MonoBehaviour, ISelectable
     {
-        [Header("Unit Produce Settings")]
-        [SerializeField] private Transform _unitsParent;
-
         [Header("Build Settings")]
         [SerializeField] private Health _health;
         [SerializeField] private float _startHealth;
@@ -23,11 +18,5 @@ namespace Core
             _health.SetMaxToCurrent();
             _health.CurrentHealth = _startHealth;
         }
-
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command) 
-            => Instantiate(command.UnitPrefab,
-                           new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
-                           Quaternion.identity,
-                           _unitsParent);
     }
 }
