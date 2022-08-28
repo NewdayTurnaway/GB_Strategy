@@ -1479,6 +1479,7 @@ GameObject:
   - component: {fileID: 7325151080142988741}
   - component: {fileID: 7318299933054677652}
   - component: {fileID: 8728323288633453285}
+  - component: {fileID: 9072031152113540282}
   m_Layer: 5
   m_Name: Unit Menu
   m_TagString: Untagged
@@ -1548,6 +1549,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &9072031152113540282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013668577576402705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65b6cd0c698dc74488f8fac50ba1d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitMenu: {fileID: 3013668577576402705}
+  _selectedValue: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
 --- !u!1 &3150426409432329826
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,9 +2093,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.94509804, g: 0.9490196, b: 0.9490196, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

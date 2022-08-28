@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Abstractions;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UserControlSystem;
 
 public sealed class MouseInteractionPresenter : MonoBehaviour
@@ -17,7 +18,8 @@ public sealed class MouseInteractionPresenter : MonoBehaviour
             return;
 
         RaycastHit[] hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
-        if (hits.Length == 0)
+        bool isOverUI = EventSystem.current.IsPointerOverGameObject();
+        if (hits.Length == 0 | isOverUI)
             return;
 
         ISelectable selectable = hits
