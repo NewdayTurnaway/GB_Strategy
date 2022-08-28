@@ -10,7 +10,7 @@ namespace UserControlSystem.UI.View
 {
     public sealed class CommandButtonsView : MonoBehaviour
     {
-        public Action<ICommandExecutor> OnClick;
+        [SerializeField] private RectTransform _rectTransform;
 
         [SerializeField] private Button _attackButton;
         [SerializeField] private Button _moveButton;
@@ -19,6 +19,11 @@ namespace UserControlSystem.UI.View
         [SerializeField] private Button _produceUnitButton;
 
         private Dictionary<Type, Button> _buttonsByExecutorType;
+
+        public Action<ICommandExecutor> OnClick;
+        
+        private void OnValidate() =>
+            _rectTransform ??= (RectTransform)gameObject.transform;
 
         private void Start()
         {
@@ -45,6 +50,7 @@ namespace UserControlSystem.UI.View
                 button.gameObject.SetActive(true);
                 button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
         }
 
         public void Clear()
