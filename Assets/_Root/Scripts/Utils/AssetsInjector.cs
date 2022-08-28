@@ -10,20 +10,26 @@ namespace Utils
         public static T Inject<T>(this AssetsContext context, T target)
         {
             Type targetType = target.GetType();
-            FieldInfo[] allFields = targetType.GetFields(BindingFlags.NonPublic
+            
+            while(targetType != null)
+            {
+                FieldInfo[] allFields = targetType.GetFields(BindingFlags.NonPublic
                                                          | BindingFlags.Public
                                                          | BindingFlags.Instance);
 
-            for (int i = 0; i < allFields.Length; i++)
-            {
-                FieldInfo fieldInfo = allFields[i];
-                
-                if (fieldInfo.GetCustomAttribute(_injectAssetAttributeType) is not InjectAssetAttribute injectAssetAttribute)
-                    continue;
+                for (int i = 0; i < allFields.Length; i++)
+                {
+                    FieldInfo fieldInfo = allFields[i];
 
-                UnityEngine.Object objectToInject = context.GetObjectOfType(fieldInfo.FieldType, injectAssetAttribute.AssetName);
-                fieldInfo.SetValue(target, objectToInject);
-            }	
+                    if (fieldInfo.GetCustomAttribute(_injectAssetAttributeType) is not InjectAssetAttribute injectAssetAttribute)
+                        continue;
+
+                    UnityEngine.Object objectToInject = context.GetObjectOfType(fieldInfo.FieldType, injectAssetAttribute.AssetName);
+                    fieldInfo.SetValue(target, objectToInject);
+                }
+
+                targetType = targetType.BaseType;
+            }
 
             return target;
         }

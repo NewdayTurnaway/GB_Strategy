@@ -45,7 +45,7 @@ namespace UserControlSystem.UI.Presenter
 
         private void ONButtonClick(ICommandExecutor commandExecutor)
         {
-            if (CommandRun<IProduceUnitCommand>(commandExecutor, _context.Inject(new ProduceUnitCommand()))) 
+            if (CommandRun<IProduceUnitCommand>(commandExecutor, _context.Inject(new ProduceUnitCommandHeir()))) 
                 return;
             if (CommandRun<IAttackCommand>(commandExecutor, _context.Inject(new AttackCommand()))) 
                 return;
