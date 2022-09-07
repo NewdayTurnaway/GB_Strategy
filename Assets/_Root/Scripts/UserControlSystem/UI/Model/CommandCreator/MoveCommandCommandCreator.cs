@@ -13,7 +13,8 @@ namespace UserControlSystem
         private Action<IMoveCommand> _creationCallback;
 
         [Inject]
-        private void Init(Vector3Value groundClicks) => groundClicks.OnNewValue += ONNewValue;
+        private void Init(Vector3Value groundClicks) 
+            => groundClicks.OnNewValue += ONNewValue;
 
         private void ONNewValue(Vector3 groundClick)
         {

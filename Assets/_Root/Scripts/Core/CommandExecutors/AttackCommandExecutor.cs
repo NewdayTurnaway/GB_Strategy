@@ -8,7 +8,7 @@ namespace Core
     {
         public override void ExecuteSpecificCommand(IAttackCommand command)
         {
-            Debug.Log($"{name} | Attack");
+            Debug.Log($"{name} | Attack the {command.Target.PivotPoint.name} with {command.Target.Health.CurrentHealth} HP");
         }
     }
 }

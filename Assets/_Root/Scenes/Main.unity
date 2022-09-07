@@ -172,6 +172,7 @@ MonoBehaviour:
   _eventSystem: {fileID: 1026252737}
   _selectedObject: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
   _groundClicksRMB: {fileID: 11400000, guid: 3e53d957d853e95469f95c8b3b19e43b, type: 2}
+  _attackablesRMB: {fileID: 11400000, guid: 780c6c5ffd14acc4680745831e817403, type: 2}
   _groundTransform: {fileID: 1656563327}
 --- !u!114 &180986517
 MonoBehaviour:
@@ -1152,14 +1153,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainBuilding
       objectReference: {fileID: 0}
-    - target: {fileID: 7365079006211755859, guid: d4396ced3ea04494281a8597c51115e0, type: 3}
-      propertyPath: _icon
-      value: 
-      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 7365079006211755859, guid: d4396ced3ea04494281a8597c51115e0, type: 3}
-      propertyPath: _unitsParent
-      value: 
-      objectReference: {fileID: 1036750834}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4396ced3ea04494281a8597c51115e0, type: 3}
 --- !u!4 &7365079006211755854 stripped
