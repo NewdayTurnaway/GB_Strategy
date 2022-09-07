@@ -7,9 +7,10 @@ using Zenject;
 public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
 {
     [SerializeField] private AssetsContext _legacyContext;
-    [SerializeField] private SelectableValue _selectableValue;
-    [SerializeField] private Vector3Value _vector3Value;
-    [SerializeField] private AttackableValue _attackableValue;
+    
+    private readonly SelectableValue _selectableValue = new();
+    private readonly Vector3Value _vector3Value = new();
+    private readonly AttackableValue _attackableValue = new();
 
     public override void InstallBindings()
     {
