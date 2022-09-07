@@ -3,16 +3,18 @@ using Abstractions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UserControlSystem;
+using Zenject;
 
 public sealed class MouseInteractionPresenter : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private EventSystem _eventSystem;
-    [SerializeField] private SelectableValue _selectedObject;
-    [SerializeField] private Vector3Value _groundClicksRMB;
-    [SerializeField] private AttackableValue _attackablesRMB;
     [SerializeField] private Transform _groundTransform;
     
+    [Inject] private SelectableValue _selectedObject;
+    [Inject] private Vector3Value _groundClicksRMB;
+    [Inject] private AttackableValue _attackablesRMB;
+
     private Plane _groundPlane;
     
     private void OnValidate()

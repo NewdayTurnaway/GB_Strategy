@@ -170,9 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 963194227}
   _eventSystem: {fileID: 1026252737}
-  _selectedObject: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
-  _groundClicksRMB: {fileID: 11400000, guid: 3e53d957d853e95469f95c8b3b19e43b, type: 2}
-  _attackablesRMB: {fileID: 11400000, guid: 780c6c5ffd14acc4680745831e817403, type: 2}
   _groundTransform: {fileID: 1656563327}
 --- !u!114 &180986517
 MonoBehaviour:
@@ -186,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6333e300591cbee4c974d250dc6929bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedValue: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
 --- !u!1 &190219907
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +687,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3150426410038303683}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8825857a6254e8849946f9b0043ac331, type: 3}
   m_Name: 
@@ -914,6 +910,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1160256290822786326, guid: 41d58e8f31c74cd45803c0d7dfc78d67, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719996467905451027, guid: 41d58e8f31c74cd45803c0d7dfc78d67, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1931206360016795096, guid: 41d58e8f31c74cd45803c0d7dfc78d67, type: 3}
