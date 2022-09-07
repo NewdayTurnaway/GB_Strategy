@@ -44,7 +44,7 @@ namespace UserControlSystem
                 _healthSlider.maxValue = selected.Health.MaxHealth;
                 _healthSlider.value = selected.Health.CurrentHealth;
                 
-                Color color = Color.Lerp(_minHealthColor, _maxHealthColor, selected.Health.CurrentHealth / selected.Health.MaxHealth);
+                var color = Color.Lerp(_minHealthColor, _maxHealthColor, selected.Health.CurrentHealth / selected.Health.MaxHealth);
                 _sliderFillImage.color = color;
 
                 LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);

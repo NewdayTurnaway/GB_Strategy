@@ -29,46 +29,64 @@ namespace UserControlSystem.UI.Presenter
         private void ONSelected(ISelectable selectable)
         {
             if (_currentSelectable == selectable)
+            {
                 return;
+            }
 
             _currentSelectable = selectable;
 
             _view.Clear();
 
             if (selectable == null)
+            {
                 return;
+            }
 
-            List<ICommandExecutor> commandExecutors = new();
+            var commandExecutors = new List<ICommandExecutor>();
             commandExecutors.AddRange((selectable as Component).GetComponentsInParent<ICommandExecutor>());
             _view.MakeLayout(commandExecutors);
         }
 
         private void ONButtonClick(ICommandExecutor commandExecutor)
         {
-            if (CommandRun<IProduceUnitCommand>(commandExecutor, _context.Inject(new ProduceUnitCommandHeir()))) 
+            if (RunCommand<IProduceUnitCommand>(commandExecutor, _context.Inject(new ProduceUnitCommandHeir())))
+            {
                 return;
-            if (CommandRun<IAttackCommand>(commandExecutor, _context.Inject(new AttackCommand()))) 
+            }
+
+            if (RunCommand<IAttackCommand>(commandExecutor, _context.Inject(new AttackCommand())))
+            {
                 return;
-            if (CommandRun<IStopCommand>(commandExecutor, _context.Inject(new StopCommand()))) 
+            }
+
+            if (RunCommand<IStopCommand>(commandExecutor, _context.Inject(new StopCommand())))
+            {
                 return;
-            if (CommandRun<IMoveCommand>(commandExecutor, _context.Inject(new MoveCommand()))) 
+            }
+
+            if (RunCommand<IMoveCommand>(commandExecutor, _context.Inject(new MoveCommand())))
+            {
                 return;
-            if (CommandRun<IPatrolCommand>(commandExecutor, _context.Inject(new PatrolCommand()))) 
+            }
+
+            if (RunCommand<IPatrolCommand>(commandExecutor, _context.Inject(new PatrolCommand())))
+            {
                 return;
+            }
 
             throw new ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(ONButtonClick)}: " +
                                            $"Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
         }
 
-        private bool CommandRun<T>(ICommandExecutor commandExecutor, T command) where T : ICommand
+        private bool RunCommand<T>(ICommandExecutor commandExecutor, T command) where T : ICommand
         {
-            CommandExecutorBase<T> classSpecificExecutor = commandExecutor as CommandExecutorBase<T>;
-
-            bool isExist = classSpecificExecutor != null;
-            if (isExist)
+            if (commandExecutor is CommandExecutorBase<T> classSpecificExecutor)
+            {
                 classSpecificExecutor.ExecuteSpecificCommand(command);
+                return true;
+            }
 
-            return isExist;
+            return false;
         }
     }
 }

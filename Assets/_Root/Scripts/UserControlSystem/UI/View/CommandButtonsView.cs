@@ -41,8 +41,8 @@ namespace UserControlSystem.UI.View
         {
             for (int i = 0; i < commandExecutors.Count; i++)
             {
-                ICommandExecutor currentExecutor = commandExecutors[i];
-                Button button = _buttonsByExecutorType
+                var currentExecutor = commandExecutors[i];
+                var button = _buttonsByExecutorType
                     .First(type => type
                         .Key
                         .IsInstanceOfType(currentExecutor))

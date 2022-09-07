@@ -30,7 +30,9 @@ namespace UserControlSystem
         private void SetOutlineSelected(OutlineSelector[] selectors, bool value)
         {
             if (selectors == null)
+            {
                 return;
+            }
 
             for (int i = 0; i < selectors.Length; i++)
             {

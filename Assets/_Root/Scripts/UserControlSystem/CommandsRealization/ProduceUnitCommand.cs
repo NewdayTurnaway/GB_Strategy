@@ -6,7 +6,8 @@ namespace UserControlSystem.CommandsRealization
 {
     public class ProduceUnitCommand : IProduceUnitCommand
     {
-        public GameObject UnitPrefab => _unitPrefab;
         [InjectAsset("Unit")] private readonly GameObject _unitPrefab;
+
+        public GameObject UnitPrefab => _unitPrefab;
     }
 }

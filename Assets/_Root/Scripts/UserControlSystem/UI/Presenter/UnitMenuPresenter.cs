@@ -22,7 +22,9 @@ namespace UserControlSystem
             _unitMenu.SetActive(false);
 
             if (selected != null)
+            {
                 _unitMenu.SetActive(true);
+            }
         }
     }
 }

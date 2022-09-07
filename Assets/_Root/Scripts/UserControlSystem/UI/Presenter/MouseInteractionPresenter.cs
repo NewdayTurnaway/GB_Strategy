@@ -15,14 +15,18 @@ public sealed class MouseInteractionPresenter : MonoBehaviour
     private void Update()
     {
         if (!Input.GetMouseButtonUp(0))
+        {
             return;
+        }
 
-        RaycastHit[] hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
-        bool isOverUI = EventSystem.current.IsPointerOverGameObject();
+        var hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
+        var isOverUI = EventSystem.current.IsPointerOverGameObject();
         if (hits.Length == 0 | isOverUI)
+        {
             return;
+        }
 
-        ISelectable selectable = hits
+        var selectable = hits
             .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
             .FirstOrDefault(c => c != null);
 

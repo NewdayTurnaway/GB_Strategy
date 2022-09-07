@@ -15,14 +15,20 @@ public sealed class OutlineSelector : MonoBehaviour
     public void SetSelected(bool isSelected)
     {
         if (_isSelected == isSelected)
+        {
             return;
+        }
 
-        List<Material> materialsList = new(_renderer.materials);
+        var materialsList = new List<Material>(_renderer.materials);
         
         if (isSelected)
+        {
             materialsList.Add(_outlineMaterial);
+        }
         else
+        {
             materialsList.RemoveAt(materialsList.Count - 1);
+        }
 
         _renderer.materials = materialsList.ToArray();
 
