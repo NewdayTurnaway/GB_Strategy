@@ -25,11 +25,11 @@ namespace UserControlSystem
 
         private void Start()
         {
-            _selectedValue.OnNewValue += ONSelected;
-            ONSelected(_selectedValue.CurrentValue);
+            _selectedValue.OnNewValue += OnSelected;
+            OnSelected(_selectedValue.CurrentValue);
         }
         
-        private void ONSelected(ISelectable selected)
+        private void OnSelected(ISelectable selected)
         {
             _selectedImage.enabled = selected != null;
             _healthSlider.gameObject.SetActive(selected != null);

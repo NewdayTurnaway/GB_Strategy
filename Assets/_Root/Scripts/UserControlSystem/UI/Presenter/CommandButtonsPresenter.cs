@@ -26,11 +26,11 @@ namespace UserControlSystem.UI.Presenter
             _model.OnCommandCancel += _view.UnblockAllInteractions;
             _model.OnCommandAccepted += _view.BlockInteractions;
 
-            _selectable.OnNewValue += ONSelected;
-            ONSelected(_selectable.CurrentValue);
+            _selectable.OnNewValue += OnSelected;
+            OnSelected(_selectable.CurrentValue);
         }
 
-        private void ONSelected(ISelectable selectable)
+        private void OnSelected(ISelectable selectable)
         {
             if (_currentSelectable == selectable)
             {

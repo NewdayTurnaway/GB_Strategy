@@ -14,9 +14,9 @@ namespace UserControlSystem
 
         [Inject]
         private void Init(AttackableValue groundClicks) 
-            => groundClicks.OnNewValue += ONNewValue;
+            => groundClicks.OnNewValue += OnNewValue;
 
-        private void ONNewValue(IAttackable attackable)
+        private void OnNewValue(IAttackable attackable)
         {
             _creationCallback?.Invoke(_context.Inject(new AttackCommand(attackable)));
             _creationCallback = null;
