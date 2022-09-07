@@ -7,6 +7,8 @@ namespace UserControlSystem
 {
     public sealed class UnitInfoPresenter : MonoBehaviour
     {
+        [SerializeField] private RectTransform _rectTransform;
+
         [SerializeField] private Image _selectedImage;
         [SerializeField] private Slider _healthSlider;
         [SerializeField] private TextMeshProUGUI _text;
@@ -16,6 +18,9 @@ namespace UserControlSystem
         [SerializeField] private Color _minHealthColor;
 
         [SerializeField] private SelectableValue _selectedValue;
+
+        private void OnValidate() => 
+            _rectTransform ??= (RectTransform)gameObject.transform;
 
         private void Start()
         {
@@ -41,6 +46,8 @@ namespace UserControlSystem
                 
                 Color color = Color.Lerp(_minHealthColor, _maxHealthColor, selected.Health.CurrentHealth / selected.Health.MaxHealth);
                 _sliderFillImage.color = color;
+
+                LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
             }
         }
     }
