@@ -14,7 +14,7 @@ namespace UserControlSystem
 
         [Inject]
         private void Init(AttackableValue groundClicks) 
-            => groundClicks.OnAttacked += ONNewValue;
+            => groundClicks.OnNewValue += ONNewValue;
 
         private void ONNewValue(IAttackable attackable)
         {
