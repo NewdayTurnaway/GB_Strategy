@@ -1,21 +1,22 @@
 ﻿using Abstractions;
 using UnityEngine;
+using Zenject;
 
 namespace UserControlSystem
 {
     public sealed class OutlineSelectorPresenter : MonoBehaviour
     {
-        [SerializeField] private SelectableValue _selectedValue;
+        [Inject] private SelectableValue _selectedValue;
 
         private OutlineSelector[] _outlineSelectors;
 
         private void Start()
         {
-            _selectedValue.OnSelected += ONSelected;
-            ONSelected(_selectedValue.CurrentValue);
+            _selectedValue.OnNewValue += OnSelected;
+            OnSelected(_selectedValue.CurrentValue);
         }
 
-        private void ONSelected(ISelectable selected)
+        private void OnSelected(ISelectable selected)
         {
             SetOutlineSelected(_outlineSelectors, false);
             _outlineSelectors = null;

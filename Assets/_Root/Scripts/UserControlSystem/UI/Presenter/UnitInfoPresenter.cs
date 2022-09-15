@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UserControlSystem
 {
@@ -17,18 +18,18 @@ namespace UserControlSystem
         [SerializeField] private Color _maxHealthColor;
         [SerializeField] private Color _minHealthColor;
 
-        [SerializeField] private SelectableValue _selectedValue;
+        [Inject] private SelectableValue _selectedValue;
 
         private void OnValidate() => 
             _rectTransform ??= (RectTransform)gameObject.transform;
 
         private void Start()
         {
-            _selectedValue.OnSelected += ONSelected;
-            ONSelected(_selectedValue.CurrentValue);
+            _selectedValue.OnNewValue += OnSelected;
+            OnSelected(_selectedValue.CurrentValue);
         }
         
-        private void ONSelected(ISelectable selected)
+        private void OnSelected(ISelectable selected)
         {
             _selectedImage.enabled = selected != null;
             _healthSlider.gameObject.SetActive(selected != null);

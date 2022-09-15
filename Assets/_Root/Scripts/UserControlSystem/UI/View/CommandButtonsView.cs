@@ -37,29 +37,53 @@ namespace UserControlSystem.UI.View
             };
         }
 
+        public void UnblockAllInteractions() 
+            => SetInteractible(true);
+
+        public void BlockInteractions(ICommandExecutor commandExecutor)
+        {
+            UnblockAllInteractions();
+            GetButtonByType(commandExecutor.GetType()).interactable = false;
+        }
+
         public void MakeLayout(List<ICommandExecutor> commandExecutors)
         {
             for (int i = 0; i < commandExecutors.Count; i++)
             {
                 var currentExecutor = commandExecutors[i];
-                var button = _buttonsByExecutorType
-                    .First(type => type
-                        .Key
-                        .IsInstanceOfType(currentExecutor))
-                    .Value;
+                var button = GetButtonByType(currentExecutor.GetType());
                 button.gameObject.SetActive(true);
                 button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
             }
+
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
         }
 
         public void Clear()
         {
-            foreach (KeyValuePair<Type, Button> kvp in _buttonsByExecutorType)
+            foreach (var kvp in _buttonsByExecutorType)
             {
                 kvp.Value.onClick.RemoveAllListeners();
                 kvp.Value.gameObject.SetActive(false);
             }
+        }
+
+        private void SetInteractible(bool value)
+        {
+            _attackButton.interactable = value;
+            _moveButton.interactable = value;
+            _patrolButton.interactable = value;
+            _stopButton.interactable = value;
+            _produceUnitButton.interactable = value;
+        }
+
+        private Button GetButtonByType(Type executorInstanceType)
+        {
+            return _buttonsByExecutorType
+                    .First(type => type
+                        .Key
+                        .IsAssignableFrom(executorInstanceType))
+                    .Value;
         }
     }
 }

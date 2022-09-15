@@ -1313,6 +1313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf2fc69b2614d21a16177382b33c00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 6449525988858398715}
   _attackButton: {fileID: 1930540702}
   _moveButton: {fileID: 1249431862}
   _patrolButton: {fileID: 1346279470}
@@ -1330,9 +1331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37468374e7cf4a9989ea25c57767147c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectable: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
   _view: {fileID: 3184798490260128803}
-  _context: {fileID: 11400000, guid: 9b722f212be4657489da1141c6eb6c44, type: 2}
 --- !u!1 &2976672082888033407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,7 +1561,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitMenu: {fileID: 3013668577576402705}
-  _selectedValue: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
 --- !u!1 &3150426409432329826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1573,7 @@ GameObject:
   - component: {fileID: 3150426409432329831}
   - component: {fileID: 3150426409432329824}
   - component: {fileID: 3150426409432329825}
+  - component: {fileID: 1719996467905451027}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1664,6 +1663,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1719996467905451027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150426409432329826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8825857a6254e8849946f9b0043ac331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3806667942870461457
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd4241cdab9471dbb144f28dc2e3b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 1160256290822786326}
   _selectedImage: {fileID: 7831420657092681945}
   _healthSlider: {fileID: 5509420541488206065}
   _text: {fileID: 8170592081333872722}
@@ -2154,7 +2166,6 @@ MonoBehaviour:
   _sliderFillImage: {fileID: 6648001813466018888}
   _maxHealthColor: {r: 0.27058825, g: 0.8156863, b: 0.61960787, a: 1}
   _minHealthColor: {r: 0.8862745, g: 0.011764706, b: 0.21960784, a: 1}
-  _selectedValue: {fileID: 11400000, guid: 7141aae4b16134e49af0215b6da77bcf, type: 2}
 --- !u!1 &6250023760959425764
 GameObject:
   m_ObjectHideFlags: 0

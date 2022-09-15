@@ -112,10 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e01563d37a23f4e9bae517fb3e14dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pivotPoint: {fileID: 4127513727063397355}
   _health:
     <MaxHealth>k__BackingField: 1000
   _startHealth: 800
-  _icon: {fileID: 0}
+  _icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &7365079006211755860
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,86 +7,48 @@ using UnityEngine;
 using UserControlSystem.CommandsRealization;
 using UserControlSystem.UI.View;
 using Utils;
+using Zenject;
 
 namespace UserControlSystem.UI.Presenter
 {
     public sealed class CommandButtonsPresenter : MonoBehaviour
     {
-        [SerializeField] private SelectableValue _selectable;
         [SerializeField] private CommandButtonsView _view;
-        [SerializeField] private AssetsContext _context;
-
+        [Inject] private SelectableValue _selectable;
+        [Inject] private CommandButtonsModel _model;
+        
         private ISelectable _currentSelectable;
 
         private void Start()
         {
-            _selectable.OnSelected += ONSelected;
-            ONSelected(_selectable.CurrentValue);
+            _view.OnClick += _model.OnCommandButtonClicked;
+            _model.OnCommandSent += _view.UnblockAllInteractions;
+            _model.OnCommandCancel += _view.UnblockAllInteractions;
+            _model.OnCommandAccepted += _view.BlockInteractions;
 
-            _view.OnClick += ONButtonClick;
+            _selectable.OnNewValue += OnSelected;
+            OnSelected(_selectable.CurrentValue);
         }
 
-        private void ONSelected(ISelectable selectable)
+        private void OnSelected(ISelectable selectable)
         {
             if (_currentSelectable == selectable)
             {
                 return;
             }
-
+            if (_currentSelectable != null)
+            {
+                _model.OnSelectionChanged();
+            }
             _currentSelectable = selectable;
 
             _view.Clear();
-
-            if (selectable == null)
+            if (selectable != null)
             {
-                return;
+                var commandExecutors = new List<ICommandExecutor>();
+                commandExecutors.AddRange((selectable as Component).GetComponentsInParent<ICommandExecutor>());
+                _view.MakeLayout(commandExecutors);
             }
-
-            var commandExecutors = new List<ICommandExecutor>();
-            commandExecutors.AddRange((selectable as Component).GetComponentsInParent<ICommandExecutor>());
-            _view.MakeLayout(commandExecutors);
-        }
-
-        private void ONButtonClick(ICommandExecutor commandExecutor)
-        {
-            if (RunCommand<IProduceUnitCommand>(commandExecutor, _context.Inject(new ProduceUnitCommandHeir())))
-            {
-                return;
-            }
-
-            if (RunCommand<IAttackCommand>(commandExecutor, _context.Inject(new AttackCommand())))
-            {
-                return;
-            }
-
-            if (RunCommand<IStopCommand>(commandExecutor, _context.Inject(new StopCommand())))
-            {
-                return;
-            }
-
-            if (RunCommand<IMoveCommand>(commandExecutor, _context.Inject(new MoveCommand())))
-            {
-                return;
-            }
-
-            if (RunCommand<IPatrolCommand>(commandExecutor, _context.Inject(new PatrolCommand())))
-            {
-                return;
-            }
-
-            throw new ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(ONButtonClick)}: " +
-                                           $"Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
-        }
-
-        private bool RunCommand<T>(ICommandExecutor commandExecutor, T command) where T : ICommand
-        {
-            if (commandExecutor is CommandExecutorBase<T> classSpecificExecutor)
-            {
-                classSpecificExecutor.ExecuteSpecificCommand(command);
-                return true;
-            }
-
-            return false;
         }
     }
 }
