@@ -1,14 +1,33 @@
 using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
-using UnityEngine;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Utils;
 
 namespace Core
 {
     public sealed class StopCommandExecutor : CommandExecutorBase<IStopCommand>
     {
+        private CancellationTokenSource _cancellationTokenSource;
+
         public override void ExecuteSpecificCommand(IStopCommand command)
         {
-            Debug.Log($"{name} | Stop");
+            _cancellationTokenSource?.Cancel();
+        }
+
+        public async Task ExecuteOtherCommandWithCancellation(IAwaitable<AsyncExtensions.Void> awaitable, Action CancelCommand)
+        {
+            _cancellationTokenSource = new();
+            try
+            {
+                await Task.Run(() => awaitable.WithCancellation(_cancellationTokenSource.Token));
+            }
+            catch
+            {
+                CancelCommand();
+            }
+            _cancellationTokenSource = null;
         }
     }
 }
