@@ -11,11 +11,11 @@ namespace UserControlSystem
         public event Action OnCommandSent;
         public event Action OnCommandCancel;
 
-        [Inject] private CommandCreatorBase<IProduceUnitCommand> _unitProducer;
-        [Inject] private CommandCreatorBase<IAttackCommand> _attacker;
-        [Inject] private CommandCreatorBase<IStopCommand> _stopper;
-        [Inject] private CommandCreatorBase<IMoveCommand> _mover;
-        [Inject] private CommandCreatorBase<IPatrolCommand> _patroller;
+        [Inject] private readonly CommandCreatorBase<IProduceUnitCommand> _unitProducer;
+        [Inject] private readonly CommandCreatorBase<IAttackCommand> _attacker;
+        [Inject] private readonly CommandCreatorBase<IStopCommand> _stopper;
+        [Inject] private readonly CommandCreatorBase<IMoveCommand> _mover;
+        [Inject] private readonly CommandCreatorBase<IPatrolCommand> _patroller;
 
         private bool _commandIsPending;
 

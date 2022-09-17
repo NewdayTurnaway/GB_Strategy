@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Abstractions;
 using Abstractions.Commands;
-using Abstractions.Commands.CommandsInterfaces;
 using UnityEngine;
-using UserControlSystem.CommandsRealization;
 using UserControlSystem.UI.View;
-using Utils;
 using Zenject;
 
-namespace UserControlSystem.UI.Presenter
+namespace UserControlSystem
 {
     public sealed class CommandButtonsPresenter : MonoBehaviour
     {
         [SerializeField] private CommandButtonsView _view;
-        [Inject] private SelectableValue _selectable;
-        [Inject] private CommandButtonsModel _model;
+        
+        [Inject] private readonly SelectableValue _selectable;
+        [Inject] private readonly CommandButtonsModel _model;
         
         private ISelectable _currentSelectable;
 

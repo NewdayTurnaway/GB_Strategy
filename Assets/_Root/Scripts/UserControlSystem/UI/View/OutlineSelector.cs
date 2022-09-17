@@ -1,37 +1,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
-public sealed class OutlineSelector : MonoBehaviour
+namespace UserControlSystem.UI.View
 {
-    [SerializeField] private MeshRenderer _renderer;
-    [SerializeField] private Material _outlineMaterial;
-    
-    private bool _isSelected;
-
-    private void OnValidate() => 
-        _renderer ??= GetComponent<MeshRenderer>();
-
-    public void SetSelected(bool isSelected)
+    [RequireComponent(typeof(MeshRenderer))]
+    public sealed class OutlineSelector : MonoBehaviour
     {
-        if (_isSelected == isSelected)
-        {
-            return;
-        }
+        [SerializeField] private MeshRenderer _renderer;
+        [SerializeField] private Material _outlineMaterial;
 
-        var materialsList = new List<Material>(_renderer.materials);
-        
-        if (isSelected)
-        {
-            materialsList.Add(_outlineMaterial);
-        }
-        else
-        {
-            materialsList.RemoveAt(materialsList.Count - 1);
-        }
+        private bool _isSelected;
 
-        _renderer.materials = materialsList.ToArray();
+        private void OnValidate() =>
+            _renderer ??= GetComponent<MeshRenderer>();
 
-        _isSelected = isSelected;
-    }
+        public void SetSelected(bool isSelected)
+        {
+            if (_isSelected == isSelected)
+            {
+                return;
+            }
+
+            var materialsList = new List<Material>(_renderer.materials);
+
+            if (isSelected)
+            {
+                materialsList.Add(_outlineMaterial);
+            }
+            else
+            {
+                materialsList.RemoveAt(materialsList.Count - 1);
+            }
+
+            _renderer.materials = materialsList.ToArray();
+
+            _isSelected = isSelected;
+        }
+    } 
 }

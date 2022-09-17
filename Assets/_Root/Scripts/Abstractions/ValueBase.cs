@@ -1,7 +1,7 @@
 ﻿using System;
 using Utils;
 
-namespace UserControlSystem
+namespace Abstractions
 {
     public abstract class ValueBase<T> : IAwaitable<T>
     {

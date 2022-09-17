@@ -7,7 +7,7 @@ namespace UserControlSystem
 {
     public sealed class PatrolCommandCommandCreator : CancellableCommandCreatorBase<IPatrolCommand, Vector3>
     {
-        [Inject] private SelectableValue _selectableValue;
+        [Inject] private readonly SelectableValue _selectableValue;
 
         protected override IPatrolCommand CreateCommand(Vector3 argument) => 
             new PatrolCommand(_selectableValue.CurrentValue.PivotPoint.position, argument);

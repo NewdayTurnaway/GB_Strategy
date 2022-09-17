@@ -1,7 +1,7 @@
 ﻿using System;
 using Utils;
 
-namespace UserControlSystem
+namespace Abstractions
 {
     public sealed class NewValueNotifier<TAwaited> : IAwaiter<TAwaited>
     {
