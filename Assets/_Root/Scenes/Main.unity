@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 180986515}
   - component: {fileID: 180986516}
   - component: {fileID: 180986517}
+  - component: {fileID: 180986518}
   m_Layer: 0
   m_Name: MouseInteractionPresenter
   m_TagString: Untagged
@@ -181,6 +182,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6333e300591cbee4c974d250dc6929bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &180986518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180986513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5342efc6388a1c241a6a674d88c1b6f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &190219907
