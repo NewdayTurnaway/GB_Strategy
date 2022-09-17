@@ -15,7 +15,13 @@ namespace Core
         private static readonly int _walkAnimation = Animator.StringToHash("Walk");
         private static readonly int _idleAnimation = Animator.StringToHash("Idle");
 
-        private void OnValidate()
+        private void OnValidate() => 
+            InstallFields();
+
+        private void Awake() => 
+            InstallFields();
+
+        private void InstallFields()
         {
             _navMeshAgent ??= GetComponent<NavMeshAgent>();
             _animator ??= GetComponent<Animator>();
