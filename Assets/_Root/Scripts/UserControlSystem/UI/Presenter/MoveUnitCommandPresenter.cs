@@ -6,7 +6,6 @@ using UserControlSystem.CommandsRealization;
 using Zenject;
 using UniRx;
 using UnityEngine.EventSystems;
-using System;
 
 namespace UserControlSystem
 {
@@ -28,11 +27,10 @@ namespace UserControlSystem
         [Inject]
         private void Init()
         {
-            _selectable.OnNewValue += OnSelected;
+            _selectable.Subscribe(OnSelected);
             _model.OnCommandSent += UnblockInteraction;
             _model.OnCommandCancel += UnblockInteraction;
             _model.OnCommandAccepted += BlockInteraction;
-            OnSelected(_selectable.CurrentValue);
 
             var availableUiFramesStream = Observable.EveryUpdate()
                 .Where(_ => !_eventSystem.IsPointerOverGameObject());
