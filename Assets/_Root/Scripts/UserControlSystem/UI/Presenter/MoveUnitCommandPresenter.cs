@@ -4,34 +4,43 @@ using Abstractions.Commands;
 using UnityEngine;
 using UserControlSystem.CommandsRealization;
 using Zenject;
+using UniRx;
+using UnityEngine.EventSystems;
 
 namespace UserControlSystem
 {
     public sealed class MoveUnitCommandPresenter : MonoBehaviour
     {
+        [SerializeField] private EventSystem _eventSystem;
+
         [Inject] private readonly SelectableValue _selectable;
         [Inject] private readonly Vector3Value _vector3Value;
 
         private CommandExecutorBase<IMoveCommand> _moveCommandExecutor;
         private bool _enableMoveCommand;
-        
-        private void Start()
+
+        private void OnValidate() =>
+            _eventSystem ??= FindObjectOfType<EventSystem>();
+
+        [Inject]
+        private void Init()
         {
             _selectable.OnNewValue += OnSelected;
             OnSelected(_selectable.CurrentValue);
-        }
 
-        private void Update()
-        {
-            if (!_enableMoveCommand)
-            {
-                return;
-            }
+            var availableUiFramesStream = Observable.EveryUpdate()
+                .Where(_ => !_eventSystem.IsPointerOverGameObject());
 
-            if (Input.GetMouseButtonUp(1))
+            var rightClicksStream = availableUiFramesStream
+                .Where(_ => Input.GetMouseButtonDown(1));
+
+            rightClicksStream.Subscribe(_ =>
             {
-                _moveCommandExecutor.ExecuteCommand(new MoveCommand(_vector3Value.CurrentValue));
-            }
+                if (_enableMoveCommand)
+                {
+                    _moveCommandExecutor.ExecuteCommand(new MoveCommand(_vector3Value.CurrentValue));
+                }
+            });
         }
 
         private void OnSelected(ISelectable selectable)
