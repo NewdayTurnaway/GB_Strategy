@@ -18,7 +18,7 @@ namespace UserControlSystem
         [SerializeField] private Color _maxHealthColor;
         [SerializeField] private Color _minHealthColor;
 
-        [Inject] private SelectableValue _selectedValue;
+        [Inject] private readonly SelectableValue _selectedValue;
 
         private void OnValidate() => 
             _rectTransform ??= (RectTransform)gameObject.transform;

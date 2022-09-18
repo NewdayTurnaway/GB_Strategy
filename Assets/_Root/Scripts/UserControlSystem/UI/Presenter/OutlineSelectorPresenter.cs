@@ -1,12 +1,13 @@
 ﻿using Abstractions;
 using UnityEngine;
+using UserControlSystem.UI.View;
 using Zenject;
 
 namespace UserControlSystem
 {
     public sealed class OutlineSelectorPresenter : MonoBehaviour
     {
-        [Inject] private SelectableValue _selectedValue;
+        [Inject] private readonly SelectableValue _selectedValue;
 
         private OutlineSelector[] _outlineSelectors;
 

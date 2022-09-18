@@ -37,8 +37,8 @@ namespace UserControlSystem.UI.View
             };
         }
 
-        public void UnblockAllInteractions() 
-            => SetInteractible(true);
+        public void UnblockAllInteractions() => 
+            SetInteractible(true);
 
         public void BlockInteractions(ICommandExecutor commandExecutor)
         {
