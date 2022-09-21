@@ -144,4 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitsParent: {fileID: 0}
-  _timeDelayToProduce: 3000
+  _queueLimit: 5

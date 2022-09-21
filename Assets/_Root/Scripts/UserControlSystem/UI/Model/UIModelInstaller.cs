@@ -1,10 +1,13 @@
 ﻿using Abstractions.Commands.CommandsInterfaces;
+using UnityEngine;
 using Zenject;
 
 namespace UserControlSystem
 {
     public class UIModelInstaller : MonoInstaller
     {
+        [SerializeField] private Sprite _unitSprite;
+
         public override void InstallBindings()
         {
             Container.Bind<CommandCreatorBase<IProduceUnitCommand>>()
@@ -19,6 +22,12 @@ namespace UserControlSystem
                 .To<StopCommandCommandCreator>().AsSingle();
 
             Container.Bind<CommandButtonsModel>().AsSingle();
+
+            Container.Bind<float>().WithId("Unit").FromInstance(5f);
+            Container.Bind<string>().WithId("Unit").FromInstance("Unit");
+            Container.Bind<Sprite>().WithId("Unit").FromInstance(_unitSprite);
+            
+            Container.Bind<QueuePanelModel>().AsSingle();
         }
     }
 }

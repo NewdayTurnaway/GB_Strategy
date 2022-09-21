@@ -14,17 +14,11 @@ namespace UserControlSystem
         private void OnValidate() => 
             _unitMenu ??= gameObject;
 
-        private void Start() => 
+        [Inject]
+        private void Init() => 
             _selectedValue.Subscribe(OnSelected);
 
-        private void OnSelected(ISelectable selected)
-        {
-            _unitMenu.SetActive(false);
-
-            if (selected != null)
-            {
-                _unitMenu.SetActive(true);
-            }
-        }
+        private void OnSelected(ISelectable selected) => 
+            _unitMenu.SetActive(selected != null);
     }
 }

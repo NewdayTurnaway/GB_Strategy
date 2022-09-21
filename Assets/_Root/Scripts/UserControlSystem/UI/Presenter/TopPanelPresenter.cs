@@ -6,21 +6,24 @@ using UniRx;
 using System;
 using Abstractions;
 
-public sealed class TopPanelPresenter : MonoBehaviour
+namespace UserControlSystem
 {
-    [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private Button _menuButton;
-    [SerializeField] private RectTransform _gameMenuRectTransform;
-
-    [Inject]
-    private void Init(ITimeModel timeModel)
+    public sealed class TopPanelPresenter : MonoBehaviour
     {
-        timeModel.GameTime.Subscribe(seconds =>
-        {
-            var t = TimeSpan.FromSeconds(seconds);
-            _inputField.text = $"{t.Minutes:D2}:{t.Seconds:D2}";
-        });
+        [SerializeField] private TMP_InputField _inputField;
+        [SerializeField] private Button _menuButton;
+        [SerializeField] private RectTransform _gameMenuRectTransform;
 
-        _menuButton.OnClickAsObservable().Subscribe(_ => _gameMenuRectTransform.gameObject.SetActive(true));
-    }
+        [Inject]
+        private void Init(ITimeModel timeModel)
+        {
+            timeModel.GameTime.Subscribe(seconds =>
+            {
+                var t = TimeSpan.FromSeconds(seconds);
+                _inputField.text = $"{t.Minutes:D2}:{t.Seconds:D2}";
+            });
+
+            _menuButton.OnClickAsObservable().Subscribe(_ => _gameMenuRectTransform.gameObject.SetActive(true));
+        }
+    } 
 }
