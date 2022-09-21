@@ -10,11 +10,12 @@ namespace UserControlSystem.UI.View
 {
     public class QueuePanelView : MonoBehaviour
     {
+        private const string NO_QUEUE = "No Queue";
+
         [SerializeField] private Slider _progressSlider;
         [SerializeField] private TextMeshProUGUI _currentUnitName;
+        [SerializeField] private Image _currentUnitIcon;
 
-        [SerializeField] private Image[] _images;
-        [SerializeField] private GameObject[] _imageHolders;
         [SerializeField] private Button[] _buttons;
         
         private readonly Subject<int> _cancelButtonClicks = new();
@@ -34,27 +35,29 @@ namespace UserControlSystem.UI.View
 
         public void Clear()
         {
-            for (int i = 0; i < _images.Length; i++)
+            for (int i = 0; i < _buttons.Length; i++)
             {
-                _images[i].sprite = null;
-                _imageHolders[i].SetActive(false);
+                _buttons[i].image.sprite = null;
+                _buttons[i].gameObject.SetActive(false);
             }
             _progressSlider.gameObject.SetActive(false);
-            _currentUnitName.text = string.Empty;
-            _currentUnitName.enabled = false;
+            _currentUnitIcon.sprite = null;
+            _currentUnitIcon.enabled = false;
+            _currentUnitName.text = NO_QUEUE;
             _unitProductionTaskCt?.Dispose();
         }
 
         public void SetTask(IUnitProductionTask task, int index)
         {
-            _imageHolders[index].SetActive(true);
-            _images[index].sprite = task.Icon;
+            _buttons[index].gameObject.SetActive(true);
+            _buttons[index].image.sprite = task.Icon;
 
             if (index == 0)
             {
                 _progressSlider.gameObject.SetActive(true);
+                _currentUnitIcon.enabled = true;
+                _currentUnitIcon.sprite = task.Icon;
                 _currentUnitName.text = task.UnitName;
-                _currentUnitName.enabled = true;
                 _unitProductionTaskCt = Observable.EveryUpdate()
                     .Subscribe(_ => _progressSlider.value = task.TimeLeft / task.ProduceTime);
             }
@@ -62,14 +65,15 @@ namespace UserControlSystem.UI.View
 
         public void RemoveTask(int index)
         {
-            _imageHolders[index].SetActive(false);
-            _images[index].sprite = null;
+            _buttons[index].gameObject.SetActive(false);
+            _buttons[index].image.sprite = null;
 
             if (index == 0)
             {
                 _progressSlider.gameObject.SetActive(false);
-                _currentUnitName.text = string.Empty;
-                _currentUnitName.enabled = false;
+                _currentUnitIcon.sprite = null;
+                _currentUnitIcon.enabled = false;
+                _currentUnitName.text = NO_QUEUE;
                 _unitProductionTaskCt?.Dispose();
             }
         }
