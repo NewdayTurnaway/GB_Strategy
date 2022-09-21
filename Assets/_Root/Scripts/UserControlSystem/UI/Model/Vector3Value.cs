@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UserControlSystem
 {
-    public sealed class Vector3Value : ValueBase<Vector3>
+    public sealed class Vector3Value : StatelessValueBase<Vector3>
     { 
 
     }

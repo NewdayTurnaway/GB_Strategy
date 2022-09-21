@@ -1,5 +1,6 @@
 ﻿using Abstractions;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -23,12 +24,9 @@ namespace UserControlSystem
         private void OnValidate() => 
             _rectTransform ??= (RectTransform)gameObject.transform;
 
-        private void Start()
-        {
-            _selectedValue.OnNewValue += OnSelected;
-            OnSelected(_selectedValue.CurrentValue);
-        }
-        
+        private void Start() => 
+            _selectedValue.Subscribe(OnSelected);
+
         private void OnSelected(ISelectable selected)
         {
             _selectedImage.enabled = selected != null;

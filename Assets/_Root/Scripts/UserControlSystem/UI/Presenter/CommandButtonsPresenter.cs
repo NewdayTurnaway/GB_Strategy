@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Abstractions;
 using Abstractions.Commands;
+using UniRx;
 using UnityEngine;
 using UserControlSystem.UI.View;
 using Zenject;
@@ -23,8 +24,7 @@ namespace UserControlSystem
             _model.OnCommandCancel += _view.UnblockAllInteractions;
             _model.OnCommandAccepted += _view.BlockInteractions;
 
-            _selectable.OnNewValue += OnSelected;
-            OnSelected(_selectable.CurrentValue);
+            _selectable.Subscribe(OnSelected);
         }
 
         private void OnSelected(ISelectable selectable)

@@ -4,35 +4,58 @@ using Abstractions.Commands;
 using UnityEngine;
 using UserControlSystem.CommandsRealization;
 using Zenject;
+using UniRx;
+using UnityEngine.EventSystems;
 
 namespace UserControlSystem
 {
     public sealed class MoveUnitCommandPresenter : MonoBehaviour
     {
+        [SerializeField] private EventSystem _eventSystem;
+
+        [Inject] private readonly CommandButtonsModel _model;
         [Inject] private readonly SelectableValue _selectable;
         [Inject] private readonly Vector3Value _vector3Value;
 
         private CommandExecutorBase<IMoveCommand> _moveCommandExecutor;
+        private bool _blockInteraction;
         private bool _enableMoveCommand;
-        
-        private void Start()
+
+        private void OnValidate() =>
+            _eventSystem ??= FindObjectOfType<EventSystem>();
+
+        [Inject]
+        private void Init()
         {
-            _selectable.OnNewValue += OnSelected;
-            OnSelected(_selectable.CurrentValue);
+            _selectable.Subscribe(OnSelected);
+            _model.OnCommandSent += UnblockInteraction;
+            _model.OnCommandCancel += UnblockInteraction;
+            _model.OnCommandAccepted += BlockInteraction;
+
+            var availableUiFramesStream = Observable.EveryUpdate()
+                .Where(_ => !_eventSystem.IsPointerOverGameObject());
+
+            var rightClicksStream = availableUiFramesStream
+                .Where(_ => Input.GetMouseButtonDown(1));
+
+            rightClicksStream.Subscribe(_ =>
+            {
+                if (_blockInteraction)
+                {
+                    return;
+                }
+                if (_enableMoveCommand)
+                {
+                    _moveCommandExecutor.ExecuteCommand(new MoveCommand(_vector3Value.CurrentValue));
+                }
+            });
         }
 
-        private void Update()
-        {
-            if (!_enableMoveCommand)
-            {
-                return;
-            }
+        private void UnblockInteraction() => 
+            _blockInteraction = false;
 
-            if (Input.GetMouseButtonUp(1))
-            {
-                _moveCommandExecutor.ExecuteCommand(new MoveCommand(_vector3Value.CurrentValue));
-            }
-        }
+        private void BlockInteraction(ICommandExecutor obj) => 
+            _blockInteraction = true;
 
         private void OnSelected(ISelectable selectable)
         {

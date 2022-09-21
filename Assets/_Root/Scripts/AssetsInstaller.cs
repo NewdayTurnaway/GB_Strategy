@@ -1,4 +1,5 @@
 using Abstractions;
+using System;
 using UnityEngine;
 using UserControlSystem;
 using Utils;
@@ -15,6 +16,7 @@ public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
 
     public override void InstallBindings()
     {
+        Container.Bind<IObservable<ISelectable>>().FromInstance(_selectableValue);
         Container.Bind<IAwaitable<IAttackable>>().FromInstance(_attackableValue);
         Container.Bind<IAwaitable<Vector3>>().FromInstance(_vector3Value);
 

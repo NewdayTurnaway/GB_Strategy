@@ -2,7 +2,7 @@
 
 namespace UserControlSystem
 {
-    public sealed class AttackableValue : ValueBase<IAttackable>
+    public sealed class AttackableValue : StatelessValueBase<IAttackable>
     { 
 
     }

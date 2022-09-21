@@ -1,4 +1,5 @@
 ﻿using Abstractions;
+using UniRx;
 using UnityEngine;
 using UserControlSystem.UI.View;
 using Zenject;
@@ -11,11 +12,8 @@ namespace UserControlSystem
 
         private OutlineSelector[] _outlineSelectors;
 
-        private void Start()
-        {
-            _selectedValue.OnNewValue += OnSelected;
-            OnSelected(_selectedValue.CurrentValue);
-        }
+        private void Start() => 
+            _selectedValue.Subscribe(OnSelected);
 
         private void OnSelected(ISelectable selected)
         {
