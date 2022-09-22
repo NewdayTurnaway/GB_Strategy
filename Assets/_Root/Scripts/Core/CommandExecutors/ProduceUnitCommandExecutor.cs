@@ -1,8 +1,9 @@
 using Abstractions;
-using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
+using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Core
 {
@@ -11,6 +12,7 @@ namespace Core
         [SerializeField] private Transform _unitsParent;
         [SerializeField] private int _queueLimit = 5;
 
+        [Inject] private DiContainer _diContainer;
         private readonly ReactiveCollection<IUnitProductionTask> _queue = new();
      
         public IReadOnlyReactiveCollection<IUnitProductionTask> Queue => _queue;
@@ -21,14 +23,15 @@ namespace Core
         public void Cancel(int index) => 
             RemoveTaskAtIndex(index);
 
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
+        public override Task ExecuteSpecificCommand(IProduceUnitCommand command)
         {
             if (_queue.Count == _queueLimit)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             _queue.Add(new UnitProductionTask(command.UnitPrefab, command.UnitName, command.Icon, command.ProduceTime));
+            return Task.CompletedTask;
         }
 
         private void OnUpdate()
@@ -44,7 +47,7 @@ namespace Core
             if (innerTask.TimeLeft <= 0)
             {
                 RemoveTaskAtIndex(0);
-                Instantiate(innerTask.UnitPrefab,
+                _diContainer.InstantiatePrefab(innerTask.UnitPrefab,
                             new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
                             Quaternion.identity,
                             _unitsParent);

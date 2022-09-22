@@ -1,11 +1,11 @@
 ﻿using Abstractions;
-using Abstractions.Commands.CommandsInterfaces;
 using Abstractions.Commands;
 using UnityEngine;
 using UserControlSystem.CommandsRealization;
 using Zenject;
 using UniRx;
 using UnityEngine.EventSystems;
+using Abstractions.Commands.CommandsInterfaces;
 
 namespace UserControlSystem
 {
@@ -17,7 +17,7 @@ namespace UserControlSystem
         [Inject] private readonly SelectableValue _selectable;
         [Inject] private readonly Vector3Value _vector3Value;
 
-        private CommandExecutorBase<IMoveCommand> _moveCommandExecutor;
+        private ICommandsQueue _commandsQueue;
         private bool _blockInteraction;
         private bool _enableMoveCommand;
 
@@ -46,7 +46,12 @@ namespace UserControlSystem
                 }
                 if (_enableMoveCommand)
                 {
-                    _moveCommandExecutor.ExecuteCommand(new MoveCommand(_vector3Value.CurrentValue));
+                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
+                    {
+                        _commandsQueue.Clear();
+                        
+                    }
+                    _commandsQueue.EnqueueCommand(new MoveCommand(_vector3Value.CurrentValue));
                 }
             });
         }
@@ -61,15 +66,8 @@ namespace UserControlSystem
         {
             if (selectable != null)
             {
-                _moveCommandExecutor = (selectable as Component).GetComponentInParent<CommandExecutorBase<IMoveCommand>>();
-                if (_moveCommandExecutor != null)
-                {
-                    _enableMoveCommand = true;
-                }
-                else
-                {
-                    _enableMoveCommand = false;
-                }
+                _commandsQueue = (selectable as Component).GetComponentInParent<ICommandsQueue>();
+                _enableMoveCommand = (selectable as Component).GetComponentInParent<ICommandExecutor<IMoveCommand>>() != null;
             }
             else
             {

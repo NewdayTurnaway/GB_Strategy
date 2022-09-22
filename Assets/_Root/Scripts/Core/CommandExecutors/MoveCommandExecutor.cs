@@ -1,5 +1,5 @@
-using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,7 +32,7 @@ namespace Core
             _stopCommandExecutor ??= GetComponent<StopCommandExecutor>();
         }
 
-        public override async void ExecuteSpecificCommand(IMoveCommand command)
+        public override async Task ExecuteSpecificCommand(IMoveCommand command)
         {
             _navMeshAgent.destination = command.Target;
             _animator.SetTrigger(_walkAnimation);

@@ -7,7 +7,7 @@ namespace UserControlSystem
     {
         public ICommandExecutor ProcessCommandExecutor(ICommandExecutor commandExecutor, Action<T> callback)
         {
-            if (commandExecutor is CommandExecutorBase<T> classSpecificExecutor)
+            if (commandExecutor is ICommandExecutor<T> classSpecificExecutor)
             {
                 ClassSpecificCommandCreation(callback);
             }
