@@ -1,4 +1,5 @@
-﻿using Abstractions.Commands.CommandsInterfaces;
+﻿using Abstractions;
+using Abstractions.Commands.CommandsInterfaces;
 using UnityEngine;
 using Zenject;
 
@@ -20,6 +21,8 @@ namespace UserControlSystem
                 .To<PatrolCommandCommandCreator>().AsSingle();
             Container.Bind<CommandCreatorBase<IStopCommand>>()
                 .To<StopCommandCommandCreator>().AsSingle();
+            Container.Bind<CommandCreatorBase<ISetDestinationCommand>>()
+                .To<SetDestinationCommandCommandCreator>().AsSingle();
 
             Container.Bind<CommandButtonsModel>().AsSingle();
 

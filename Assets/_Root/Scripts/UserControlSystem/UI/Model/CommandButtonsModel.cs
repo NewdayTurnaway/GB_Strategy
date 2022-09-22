@@ -1,4 +1,5 @@
 ﻿using System;
+using Abstractions;
 using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace UserControlSystem
         [Inject] private readonly CommandCreatorBase<IStopCommand> _stopper;
         [Inject] private readonly CommandCreatorBase<IMoveCommand> _mover;
         [Inject] private readonly CommandCreatorBase<IPatrolCommand> _patroller;
+        [Inject] private readonly CommandCreatorBase<ISetDestinationCommand> _setDestination;
 
         private bool _commandIsPending;
 
@@ -34,6 +36,7 @@ namespace UserControlSystem
             _stopper.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
             _mover.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
             _patroller.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
+            _setDestination.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
         }
 
         public void ExecuteCommandWrapper(object command, ICommandsQueue commandsQueue)
@@ -60,6 +63,7 @@ namespace UserControlSystem
             _stopper.ProcessCancel();
             _mover.ProcessCancel();
             _patroller.ProcessCancel();
+            _setDestination.ProcessCancel();
 
             OnCommandCancel?.Invoke();
         }

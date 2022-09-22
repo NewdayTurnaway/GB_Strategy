@@ -14,6 +14,7 @@ namespace Core
         public Transform PivotPoint => _pivotPoint;
         public Health Health => _health;
         public Sprite Icon => _icon;
+        public Vector3 Destination { get; set; }
 
         private void OnValidate() => 
             _pivotPoint ??= transform;

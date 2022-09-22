@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Abstractions;
 using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,7 @@ namespace UserControlSystem.UI.View
         [SerializeField] private Button _patrolButton;
         [SerializeField] private Button _stopButton;
         [SerializeField] private Button _produceUnitButton;
+        [SerializeField] private Button _setDestinationButton;
 
         private Dictionary<Type, Button> _buttonsByExecutorType;
 
@@ -33,7 +36,8 @@ namespace UserControlSystem.UI.View
                 { typeof(ICommandExecutor<IMoveCommand>), _moveButton },
                 { typeof(ICommandExecutor<IPatrolCommand>), _patrolButton },
                 { typeof(ICommandExecutor<IStopCommand>), _stopButton },
-                { typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton }
+                { typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton },
+                { typeof(ICommandExecutor<ISetDestinationCommand>), _setDestinationButton }
             };
         }
 
@@ -75,6 +79,7 @@ namespace UserControlSystem.UI.View
             _patrolButton.interactable = value;
             _stopButton.interactable = value;
             _produceUnitButton.interactable = value;
+            _setDestinationButton.interactable = value;
         }
 
         private Button GetButtonByType(Type executorInstanceType)

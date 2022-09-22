@@ -1,4 +1,5 @@
 using Abstractions;
+using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
 using System.Threading.Tasks;
 using UniRx;
@@ -47,10 +48,10 @@ namespace Core
             if (innerTask.TimeLeft <= 0)
             {
                 RemoveTaskAtIndex(0);
-                _diContainer.InstantiatePrefab(innerTask.UnitPrefab,
-                            new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
-                            Quaternion.identity,
-                            _unitsParent);
+                var instance = _diContainer.InstantiatePrefab(innerTask.UnitPrefab, transform.position, Quaternion.identity, _unitsParent);
+                var queue = instance.GetComponent<ICommandsQueue>();
+                var building = GetComponent<MainBuilding>();
+                queue.EnqueueCommand(new MoveCommand(building.Destination));
             }
         }
 
