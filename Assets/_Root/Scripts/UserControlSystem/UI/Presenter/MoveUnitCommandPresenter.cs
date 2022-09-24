@@ -6,6 +6,7 @@ using Zenject;
 using UniRx;
 using UnityEngine.EventSystems;
 using Abstractions.Commands.CommandsInterfaces;
+using System.Threading.Tasks;
 
 namespace UserControlSystem
 {
@@ -38,7 +39,7 @@ namespace UserControlSystem
             var rightClicksStream = availableUiFramesStream
                 .Where(_ => Input.GetMouseButtonDown(1));
 
-            rightClicksStream.Subscribe(_ =>
+            rightClicksStream.Subscribe(async _ =>
             {
                 if (_blockInteraction)
                 {
@@ -48,7 +49,7 @@ namespace UserControlSystem
                 {
                     if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
                     {
-                        _commandsQueue.Clear();
+                        await Task.Run(() => _commandsQueue.Clear());
                         
                     }
                     _commandsQueue.EnqueueCommand(new MoveCommand(_vector3Value.CurrentValue));
