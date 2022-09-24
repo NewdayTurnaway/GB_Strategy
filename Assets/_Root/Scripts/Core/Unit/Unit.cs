@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Core
 {
-    public sealed class Unit : MonoBehaviour, IAttackable
+    public sealed class Unit : MonoBehaviour, IAttackable, IUnit
     {
         [Header("Unit Settings")]
         [SerializeField] private Transform _pivotPoint;

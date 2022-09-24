@@ -11,9 +11,10 @@ namespace Core
     {
         private CancellationTokenSource _cancellationTokenSource;
 
-        public override void ExecuteSpecificCommand(IStopCommand command)
+        public override Task ExecuteSpecificCommand(IStopCommand command)
         {
             _cancellationTokenSource?.Cancel();
+            return Task.CompletedTask;
         }
 
         public async Task ExecuteOtherCommandWithCancellation(IAwaitable<AsyncExtensions.Void> awaitable, Action CancelCommand)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Abstractions;
 using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,10 +19,11 @@ namespace UserControlSystem.UI.View
         [SerializeField] private Button _patrolButton;
         [SerializeField] private Button _stopButton;
         [SerializeField] private Button _produceUnitButton;
+        [SerializeField] private Button _setDestinationButton;
 
         private Dictionary<Type, Button> _buttonsByExecutorType;
 
-        public Action<ICommandExecutor> OnClick;
+        public Action<ICommandExecutor, ICommandsQueue> OnClick;
         
         private void OnValidate() =>
             _rectTransform ??= (RectTransform)gameObject.transform;
@@ -29,11 +32,12 @@ namespace UserControlSystem.UI.View
         {
             _buttonsByExecutorType = new Dictionary<Type, Button>
             {
-                { typeof(CommandExecutorBase<IAttackCommand>), _attackButton },
-                { typeof(CommandExecutorBase<IMoveCommand>), _moveButton },
-                { typeof(CommandExecutorBase<IPatrolCommand>), _patrolButton },
-                { typeof(CommandExecutorBase<IStopCommand>), _stopButton },
-                { typeof(CommandExecutorBase<IProduceUnitCommand>), _produceUnitButton }
+                { typeof(ICommandExecutor<IAttackCommand>), _attackButton },
+                { typeof(ICommandExecutor<IMoveCommand>), _moveButton },
+                { typeof(ICommandExecutor<IPatrolCommand>), _patrolButton },
+                { typeof(ICommandExecutor<IStopCommand>), _stopButton },
+                { typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton },
+                { typeof(ICommandExecutor<ISetDestinationCommand>), _setDestinationButton }
             };
         }
 
@@ -46,14 +50,14 @@ namespace UserControlSystem.UI.View
             GetButtonByType(commandExecutor.GetType()).interactable = false;
         }
 
-        public void MakeLayout(List<ICommandExecutor> commandExecutors)
+        public void MakeLayout(List<ICommandExecutor> commandExecutors, ICommandsQueue queue)
         {
             for (int i = 0; i < commandExecutors.Count; i++)
             {
                 var currentExecutor = commandExecutors[i];
                 var button = GetButtonByType(currentExecutor.GetType());
                 button.gameObject.SetActive(true);
-                button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
+                button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor, queue));
             }
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
@@ -75,6 +79,7 @@ namespace UserControlSystem.UI.View
             _patrolButton.interactable = value;
             _stopButton.interactable = value;
             _produceUnitButton.interactable = value;
+            _setDestinationButton.interactable = value;
         }
 
         private Button GetButtonByType(Type executorInstanceType)
