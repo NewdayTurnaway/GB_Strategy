@@ -1,4 +1,3 @@
-using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
 using System;
 using System.Threading;
@@ -9,26 +8,26 @@ namespace Core
 {
     public sealed class StopCommandExecutor : CommandExecutorBase<IStopCommand>
     {
-        private CancellationTokenSource _cancellationTokenSource;
+        public CancellationTokenSource CancellationTokenSource { get; set; }
 
         public override Task ExecuteSpecificCommand(IStopCommand command)
         {
-            _cancellationTokenSource?.Cancel();
+            CancellationTokenSource?.Cancel();
             return Task.CompletedTask;
         }
 
         public async Task ExecuteOtherCommandWithCancellation(IAwaitable<AsyncExtensions.Void> awaitable, Action CancelCommand)
         {
-            _cancellationTokenSource = new();
+            CancellationTokenSource = new();
             try
             {
-                await Task.Run(() => awaitable.WithCancellation(_cancellationTokenSource.Token));
+                await Task.Run(() => awaitable.WithCancellation(CancellationTokenSource.Token));
             }
             catch
             {
                 CancelCommand();
             }
-            _cancellationTokenSource = null;
+            CancellationTokenSource = null;
         }
     }
 }

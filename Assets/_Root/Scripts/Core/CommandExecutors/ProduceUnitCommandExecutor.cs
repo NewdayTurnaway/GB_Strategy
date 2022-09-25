@@ -8,15 +8,20 @@ using Zenject;
 
 namespace Core
 {
+    [RequireComponent(typeof(FactionMember))]
     public sealed class ProduceUnitCommandExecutor : CommandExecutorBase<IProduceUnitCommand>, IUnitProducer
     {
+        [SerializeField] private FactionMember _factionMember;
         [SerializeField] private Transform _unitsParent;
         [SerializeField] private int _queueLimit = 5;
 
-        [Inject] private DiContainer _diContainer;
+        [Inject] private readonly DiContainer _diContainer;
         private readonly ReactiveCollection<IUnitProductionTask> _queue = new();
      
         public IReadOnlyReactiveCollection<IUnitProductionTask> Queue => _queue;
+
+        private void OnValidate() => 
+            _factionMember ??= GetComponent<FactionMember>();
 
         private void Start() => 
             Observable.EveryUpdate().Subscribe(_ => OnUpdate());
@@ -48,9 +53,14 @@ namespace Core
             if (innerTask.TimeLeft <= 0)
             {
                 RemoveTaskAtIndex(0);
-                var instance = _diContainer.InstantiatePrefab(innerTask.UnitPrefab, transform.position, Quaternion.identity, _unitsParent);
+                var instance = _diContainer.InstantiatePrefab(innerTask.UnitPrefab,
+                                                              transform.position,
+                                                              Quaternion.identity,
+                                                              _unitsParent);
                 var queue = instance.GetComponent<ICommandsQueue>();
                 var building = GetComponent<MainBuilding>();
+                var factionMember = instance.GetComponent<FactionMember>();
+                factionMember.SetFaction(_factionMember.FactionId);
                 queue.EnqueueCommand(new MoveCommand(building.Destination));
             }
         }
