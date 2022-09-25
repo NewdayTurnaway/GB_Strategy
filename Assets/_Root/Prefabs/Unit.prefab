@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edce3082bc2cbd74d8d05e813318b91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transform: {fileID: 7532434298505726263}
   _navMeshAgent: {fileID: 775217969672264450}
   _animator: {fileID: 1844497646}
   _stopCommandExecutor: {fileID: 2085494752007143552}
@@ -347,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f140f24d59308fd43ac37ff126c62821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _factionId: 0
+  _factionId: 1
 --- !u!114 &5869489444799300220
 MonoBehaviour:
   m_ObjectHideFlags: 0

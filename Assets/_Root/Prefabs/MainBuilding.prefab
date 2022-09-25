@@ -122,6 +122,7 @@ MonoBehaviour:
     <MaxHealth>k__BackingField: 1000
   _startHealth: 800
   _icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  _unitDamage: 20
 --- !u!114 &7365079006211755860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d0af9cc05f3af498ed3e496573d2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _factionMember: {fileID: 5517785306651235919}
   _unitsParent: {fileID: 0}
   _queueLimit: 5
 --- !u!114 &1008592300072080979
@@ -217,4 +219,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f140f24d59308fd43ac37ff126c62821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _factionId: 0
+  _factionId: 1
