@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Abstractions;
 using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
@@ -39,11 +40,11 @@ namespace UserControlSystem
             _setDestination.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
         }
 
-        public void ExecuteCommandWrapper(object command, ICommandsQueue commandsQueue)
+        public async void ExecuteCommandWrapper(object command, ICommandsQueue commandsQueue)
         {
             if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
             {
-                commandsQueue.Clear();
+                await Task.Run(() => commandsQueue.Clear());
             }
             commandsQueue.EnqueueCommand(command);
             _commandIsPending = false;
