@@ -164,7 +164,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 4f214bd0f9c4a5142a20625951a06bb2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -190,6 +190,7 @@ MonoBehaviour:
     <MaxHealth>k__BackingField: 100
   _startHealth: 100
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _damage: 20
 --- !u!114 &1844497639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +272,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594068e39a58157418138a94bc2ec6be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 775217969672264450}
+  _animator: {fileID: 1844497646}
+  _movementStop: {fileID: 3194955402218266756}
+  _stopCommandExecutor: {fileID: 2085494752007143552}
 --- !u!114 &2085494752007143552
 MonoBehaviour:
   m_ObjectHideFlags: 0
