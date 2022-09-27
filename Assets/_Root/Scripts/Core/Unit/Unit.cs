@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Core
 {
     [RequireComponent(typeof(Animator), typeof(StopCommandExecutor))]
-    public sealed class Unit : MonoBehaviour, IAttackable, IUnit, IDamageDealer
+    public sealed class Unit : MonoBehaviour, IAttackable, IUnit, IDamageDealer, IAutomaticAttacker
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private StopCommandExecutor _stopCommand;
@@ -15,6 +15,7 @@ namespace Core
         [SerializeField] private float _startHealth;
         [SerializeField] private Sprite _icon;
         [SerializeField] private int _damage = 20;
+        [SerializeField] private float _visionRadius = 4f;
 
         private static readonly int _deathAnimation = Animator.StringToHash("Death");
 
@@ -22,6 +23,7 @@ namespace Core
         public Health Health => _health;
         public Sprite Icon => _icon;
         public int Damage => _damage;
+        public float VisionRadius => _visionRadius;
 
         private void OnValidate()
         {

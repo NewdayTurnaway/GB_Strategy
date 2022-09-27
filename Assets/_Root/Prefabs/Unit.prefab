@@ -28,6 +28,9 @@ GameObject:
   - component: {fileID: 4528058908925652524}
   - component: {fileID: 2794730286895444920}
   - component: {fileID: 5869489444799300220}
+  - component: {fileID: 3501925607017789378}
+  - component: {fileID: 3953939304740450021}
+  - component: {fileID: 5580603240045261544}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -191,6 +194,7 @@ MonoBehaviour:
   _startHealth: 100
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   _damage: 20
+  _visionRadius: 4
 --- !u!114 &1844497639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,3 +365,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6278191a8cef74c82e61e8ba7c41f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackerParallelnfoUpdater: {fileID: 3501925607017789378}
+  _factionMemberParallelInfoUpdater: {fileID: 3953939304740450021}
+--- !u!114 &3501925607017789378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356966425143561641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364f4e73d3006f64cb1494e79d4fdc30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3953939304740450021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356966425143561641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ff01bb321938e4890f935b56be0a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5580603240045261544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356966425143561641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de2b83bc3e17d7488936e47e631487f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _queue: {fileID: 7787800150927775638}
