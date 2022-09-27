@@ -20,6 +20,7 @@ namespace UserControlSystem
         [Inject] private readonly CommandCreatorBase<IMoveCommand> _mover;
         [Inject] private readonly CommandCreatorBase<IPatrolCommand> _patroller;
         [Inject] private readonly CommandCreatorBase<ISetDestinationCommand> _setDestination;
+        [Inject] private readonly CommandCreatorBase<IHealingCommand> _healer;
 
         private bool _commandIsPending;
 
@@ -38,6 +39,7 @@ namespace UserControlSystem
             _mover.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
             _patroller.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
             _setDestination.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
+            _healer.ProcessCommandExecutor(commandExecutor, command => ExecuteCommandWrapper(command, queue));
         }
 
         public async void ExecuteCommandWrapper(object command, ICommandsQueue commandsQueue)
@@ -65,6 +67,7 @@ namespace UserControlSystem
             _mover.ProcessCancel();
             _patroller.ProcessCancel();
             _setDestination.ProcessCancel();
+            _healer.ProcessCancel();
 
             OnCommandCancel?.Invoke();
         }

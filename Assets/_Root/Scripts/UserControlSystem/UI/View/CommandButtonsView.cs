@@ -4,7 +4,6 @@ using System.Linq;
 using Abstractions;
 using Abstractions.Commands;
 using Abstractions.Commands.CommandsInterfaces;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +19,7 @@ namespace UserControlSystem.UI.View
         [SerializeField] private Button _stopButton;
         [SerializeField] private Button _produceUnitButton;
         [SerializeField] private Button _setDestinationButton;
+        [SerializeField] private Button _healingButton;
 
         private Dictionary<Type, Button> _buttonsByExecutorType;
 
@@ -37,7 +37,8 @@ namespace UserControlSystem.UI.View
                 { typeof(ICommandExecutor<IPatrolCommand>), _patrolButton },
                 { typeof(ICommandExecutor<IStopCommand>), _stopButton },
                 { typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton },
-                { typeof(ICommandExecutor<ISetDestinationCommand>), _setDestinationButton }
+                { typeof(ICommandExecutor<ISetDestinationCommand>), _setDestinationButton },
+                { typeof(ICommandExecutor<IHealingCommand>), _healingButton }
             };
         }
 
