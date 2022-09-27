@@ -20,6 +20,7 @@ namespace UserControlSystem.UI.View
         [SerializeField] private Button _produceUnitButton;
         [SerializeField] private Button _setDestinationButton;
         [SerializeField] private Button _healingButton;
+        [SerializeField] private Button _teleportButton;
 
         private Dictionary<Type, Button> _buttonsByExecutorType;
 
@@ -38,7 +39,8 @@ namespace UserControlSystem.UI.View
                 { typeof(ICommandExecutor<IStopCommand>), _stopButton },
                 { typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton },
                 { typeof(ICommandExecutor<ISetDestinationCommand>), _setDestinationButton },
-                { typeof(ICommandExecutor<IHealingCommand>), _healingButton }
+                { typeof(ICommandExecutor<IHealingCommand>), _healingButton },
+                { typeof(ICommandExecutor<ITeleportCommand>), _teleportButton }
             };
         }
 
