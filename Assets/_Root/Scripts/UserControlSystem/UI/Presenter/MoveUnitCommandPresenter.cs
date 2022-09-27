@@ -39,7 +39,7 @@ namespace UserControlSystem
             var rightClicksStream = availableUiFramesStream
                 .Where(_ => Input.GetMouseButtonDown(1));
 
-            rightClicksStream.Subscribe(async _ =>
+            rightClicksStream.Subscribe(_ =>
             {
                 if (_blockInteraction)
                 {
@@ -47,12 +47,7 @@ namespace UserControlSystem
                 }
                 if (_enableMoveCommand)
                 {
-                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
-                    {
-                        await Task.Run(() => _commandsQueue.Clear());
-                        
-                    }
-                    _commandsQueue.EnqueueCommand(new MoveCommand(_vector3Value.CurrentValue));
+                    _model.ExecuteCommandWrapper(new MoveCommand(_vector3Value.CurrentValue), _commandsQueue);
                 }
             });
         }

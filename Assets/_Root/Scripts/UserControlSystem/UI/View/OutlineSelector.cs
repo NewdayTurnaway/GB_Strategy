@@ -16,6 +16,11 @@ namespace UserControlSystem.UI.View
 
         public void SetSelected(bool isSelected)
         {
+            if (this == null)
+            {
+                return;
+            }
+
             if (_isSelected == isSelected)
             {
                 return;
@@ -36,5 +41,5 @@ namespace UserControlSystem.UI.View
 
             _isSelected = isSelected;
         }
-    } 
+    }
 }

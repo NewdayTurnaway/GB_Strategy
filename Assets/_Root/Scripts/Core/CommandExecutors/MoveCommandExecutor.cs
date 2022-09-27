@@ -9,22 +9,16 @@ namespace Core
     [RequireComponent(typeof(StopCommandExecutor))]
     public sealed class MoveCommandExecutor : CommandExecutorBase<IMoveCommand>
     {
-        private NavMeshAgent _navMeshAgent;
-        private Animator _animator;
-        
-        private UnitMovementStop _movementStop;
-        private StopCommandExecutor _stopCommandExecutor;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
+        [SerializeField] private Animator _animator;
+
+        [SerializeField] private UnitMovementStop _movementStop;
+        [SerializeField] private StopCommandExecutor _stopCommandExecutor;
 
         private static readonly int _walkAnimation = Animator.StringToHash("Walk");
         private static readonly int _idleAnimation = Animator.StringToHash("Idle");
 
-        private void OnValidate() => 
-            InstallFields();
-
-        private void Awake() => 
-            InstallFields();
-
-        private void InstallFields()
+        private void OnValidate()
         {
             _navMeshAgent ??= GetComponent<NavMeshAgent>();
             _animator ??= GetComponent<Animator>();

@@ -1,6 +1,6 @@
 ﻿namespace Abstractions
 {
-    public interface IHeathHolder
+    public interface IHealthHolder
     {
         Health Health { get; }
     }

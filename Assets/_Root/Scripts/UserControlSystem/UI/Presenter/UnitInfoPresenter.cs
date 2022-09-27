@@ -35,19 +35,23 @@ namespace UserControlSystem
 
             if (selected != null)
             {
-                _selectedImage.sprite = selected.Icon;
-                
-                _text.text = $"{selected.Health.CurrentHealth} / {selected.Health.MaxHealth}";
-                
-                _healthSlider.minValue = 0;
-                _healthSlider.maxValue = selected.Health.MaxHealth;
-                _healthSlider.value = selected.Health.CurrentHealth;
-                
-                var color = Color.Lerp(_minHealthColor, _maxHealthColor, selected.Health.CurrentHealth / selected.Health.MaxHealth);
-                _sliderFillImage.color = color;
-
+                Observable.EveryFixedUpdate().Subscribe(_ => SetUiInfo(selected));
                 LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
             }
+        }
+
+        private void SetUiInfo(ISelectable selected)
+        {
+            _selectedImage.sprite = selected.Icon;
+
+            _text.text = $"{selected.Health.CurrentHealth} / {selected.Health.MaxHealth}";
+
+            _healthSlider.minValue = 0;
+            _healthSlider.maxValue = selected.Health.MaxHealth;
+            _healthSlider.value = selected.Health.CurrentHealth;
+
+            var color = Color.Lerp(_minHealthColor, _maxHealthColor, selected.Health.CurrentHealth / selected.Health.MaxHealth);
+            _sliderFillImage.color = color;
         }
     }
 }
