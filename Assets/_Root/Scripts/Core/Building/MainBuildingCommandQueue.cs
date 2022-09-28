@@ -11,6 +11,8 @@ namespace Core
         [Inject] private readonly CommandExecutorBase<IProduceUnitCommand> _produceUnitCommandExecutor;
         [Inject] private readonly CommandExecutorBase<ISetDestinationCommand> _setDestinationCommandExecutor;
 
+        public ICommand CurrentCommand => default;
+
         public void Clear() { }
 
         public async void EnqueueCommand(object command)

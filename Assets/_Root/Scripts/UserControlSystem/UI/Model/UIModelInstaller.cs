@@ -23,6 +23,10 @@ namespace UserControlSystem
                 .To<StopCommandCommandCreator>().AsSingle();
             Container.Bind<CommandCreatorBase<ISetDestinationCommand>>()
                 .To<SetDestinationCommandCommandCreator>().AsSingle();
+            Container.Bind<CommandCreatorBase<IHealingCommand>>()
+                .To<HealingCommandCommandCreator>().AsSingle();
+            Container.Bind<CommandCreatorBase<ITeleportCommand>>()
+                .To<TeleportCommandCommandCreator>().AsSingle();
 
             Container.Bind<CommandButtonsModel>().AsSingle();
 

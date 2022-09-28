@@ -6,10 +6,10 @@ using Zenject;
 
 namespace Core
 {
-    public sealed class UnitCommandsQueue : MonoBehaviour, ICommandsQueue
+    public sealed class AnotherUnitCommandsQueue : MonoBehaviour, ICommandsQueue
     {
         [Inject] private readonly CommandExecutorBase<IMoveCommand> _moveCommandExecutor;
-        [Inject] private readonly CommandExecutorBase<IPatrolCommand> _patrolCommandExecutor;
+        [Inject] private readonly CommandExecutorBase<ITeleportCommand> _teleportCommandExecutor;
         [Inject] private readonly CommandExecutorBase<IAttackCommand> _attackCommandExecutor;
         [Inject] private readonly CommandExecutorBase<IStopCommand> _stopCommandExecutor;
         
@@ -32,7 +32,7 @@ namespace Core
         private async void ExecuteCommand(ICommand command)
         {
             await _moveCommandExecutor.TryExecuteCommand(command);
-            await _patrolCommandExecutor.TryExecuteCommand(command);
+            await _teleportCommandExecutor.TryExecuteCommand(command);
             await _attackCommandExecutor.TryExecuteCommand(command);
             await _stopCommandExecutor.TryExecuteCommand(command);
             if (_innerCollection.Count > 0)
